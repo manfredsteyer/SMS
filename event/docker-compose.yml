@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  events:
+    image: steyer/node-event
+    restart: always
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '8080:8080'
+    expose:
+      - '8080'
