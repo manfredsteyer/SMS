@@ -1,0 +1,118 @@
+version: '3.3'
+services:
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:6.0.0
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - '2181:2181'
+    expose:
+      - '2181'
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  broker:
+    image: confluentinc/cp-kafka:6.0.0
+    hostname: broker
+    container_name: broker
+    depends_on:
+      - zookeeper
+    ports:
+      - '29092:29092'
+      - '9092:9092'
+    expose: 
+      - '29092'
+      - '9092'
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092,PLAINTEXT_HOST://broker:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+
+  eventdb:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-event-db:/var/lib/mysql
+
+  ticketdb:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3307:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-ticket-db:/var/lib/mysql
+
+  event:
+    depends_on:
+      - broker
+      - eventdb    
+    links:
+      - eventdb:eventdb
+      - broker:broker  
+    image: manfredsteyertest/event
+    restart: always
+    ports:
+      - '8080:8080'
+    expose:
+      - '8080'    
+    environment:
+      MYSQL_HOST: 'eventdb'
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'      
+      KAFKA_HOST: 'broker:9092'
+
+  invoice:
+    depends_on:
+      - broker
+    links:
+      - broker:broker 
+    image: manfredsteyertest/invoice
+    restart: always
+    environment:
+      KAFKA_HOST: 'broker:9092'
+      
+  ticket:
+    depends_on:
+      - broker
+      - ticketdb
+    links:
+      - ticketdb:ticketdb
+      - broker:broker
+    image: manfredsteyertest/ticket
+    restart: always
+    ports: 
+        - '8081:8080'
+    expose: 
+        - '8080'
+    environment:
+        MYSQL_HOST: 'ticketdb'
+        MYSQL_DATABASE: 'db'
+        MYSQL_USER: 'user'
+        MYSQL_PASSWORD: 'password'
+        KAFKA_HOST: 'broker'
+
+volumes:
+  my-event-db:
+  my-ticket-db:

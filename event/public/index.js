@@ -18,7 +18,7 @@ function renderEvents(events) {
     <h3>${event.title}</h3>
     <p>${event.description}</p>
     <p>
-        <a href="http://localhost:8081/index.html?event=${event.id}">Get Your Ticket!</a>
+        <a href="http://localhost:8081/index.html?eventId=${event.id}">Get Your Ticket!</a>
     </p>
 </div>
 `
