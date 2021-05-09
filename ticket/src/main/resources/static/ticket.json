@@ -1,0 +1,15 @@
+[
+    {
+        "ticketTypeId": 1,
+        "eventId": 17,
+        "title": "Einzelticket",
+        "price": 980
+    },
+    {
+        "ticketTypeId": 2,
+        "eventId": 17,
+        "title": "Gruppenticket",
+        "price": 760
+    }
+
+]

@@ -1,3 +1,106 @@
+
+<!DOCTYPE html>
+<html>
+<title>Tickets</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<style>
+@import url('./ticket.css');
+body,h1,h2,h3,h4,h5,h6 {
+  font-family: "Karma", sans-serif;
+  background-color: lavender
+}
+
+.w3-white {
+  background-color: lavender !important
+}
+
+.w3-bar-block .w3-bar-item {padding:20px}
+</style>
 <body>
-<h1>Ticket</h1>
+
+
+
+<!-- Top menu -->
+<div class="w3-white w3-top">
+  <div class="w3-xlarge" style="max-width:1200px;margin:auto">
+    <div class="w3-center w3-padding-16">Tickets</div>
+  </div>
+</div>
+  
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+
+<div id="main">
+  <!-- <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+    <div class="w3-quarter">
+        <img src="/images/01.jpg" alt="Sandwich" style="width:100%">
+        <h3>The Perfect Sandwich, A Real NYC Classic</h3>
+        <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+      </div>
+    <div class="w3-quarter">
+      <img src="/images/02.jpg" alt="Steak" style="width:100%">
+      <h3>Let Me Tell You About This Steak</h3>
+      <p>Once again, some random text to lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+    </div>
+    <div class="w3-quarter">
+      <img src="/images/03.jpg" alt="Cherries" style="width:100%">
+      <h3>Cherries, interrupted</h3>
+      <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+      <p>What else?</p>
+    </div>
+    <div class="w3-quarter">
+      <img src="/images/04.jpg" alt="Pasta and Wine" style="width:100%">
+      <h3>Once Again, Robust Wine and Vegetable Pasta</h3>
+      <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+    </div>
+  </div> -->
+</div>
+
+  <hr id="about">
+
+  
+  <!-- Footer -->
+  <footer class="w3-row-padding w3-padding-32">
+    Design taken from https://www.w3schools.com/w3css/
+  </footer>
+
+<!-- End page content -->
+</div>
+
+
+<div id="dialog" class="gray-bg">
+  <div class="dialog">
+    <div class="dialog-inside">
+      <h2>Book Your Ticket!</h2>
+
+      <p id="error">All fields are required!</p>
+
+      <form onsubmit="return false">
+        <input placeholder="First Name" id="firstName"><br>
+        <input placeholder="Last Name" id="lastName"><br>
+        <button type="button" id="book">Book Ticket!</button>
+        <button type="button" id="close">Close!</button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div id="confirm" class="gray-bg">
+  <div class="dialog">
+    <div class="dialog-inside">
+      <h2>Thanks for Booking a Ticket!</h2>
+      <p>You will receive your ticket asap!</p>
+      <button id="closeConfirm">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="ticket.js"></script>
+
 </body>
+</html> 

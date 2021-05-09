@@ -24,12 +24,12 @@ public class TicketType {
     private @Id @GeneratedValue Long ticketTypeId;
     private String title;
 
-    @Column(name = "event_id", insertable = false, updatable = false)
+    @Column(name = "event_id")
     private Long eventId;
     private java.math.BigDecimal price;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", insertable = false, updatable = false)
     private Event event;
 
     public TicketType() { }
@@ -72,6 +72,7 @@ public class TicketType {
     }
     public void setEvent(Event event) {
         this.event = event;
+        this.eventId = event.getEventId();
     }
     
     public Set<Ticket> getTickets() {

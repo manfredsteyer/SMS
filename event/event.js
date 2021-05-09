@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', async function (req, res) {
     try {
-        const result = await query(`select * from events order by title`);
+        const result = await query(`select * from events order by id`);
         res.send(result);
     }
     catch (err) {

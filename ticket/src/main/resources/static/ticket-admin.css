@@ -1,0 +1,39 @@
+.gray-bg {
+    z-index: 10000;
+    background-color: #000000AA;
+    left:0px;
+    top:0px;
+    width:100%;
+    height:100%;
+    position: fixed;
+}
+
+.dialog {
+    left:0px;
+    top:0px;
+    width:100%;
+    height:100%;
+    position: fixed;
+}
+
+.dialog-inside {
+    background-color: white;
+    margin: 100px auto;
+    width: 400px;
+    padding:20px;
+
+}
+
+.dialog-inside h2 {
+    background-color: white;
+}
+
+.dialog-inside input {
+    width:100%;
+    margin-bottom:10px;
+}
+
+#error {
+    color: red;
+    visibility: hidden;
+}
