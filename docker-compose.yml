@@ -33,7 +33,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
 
-  db:
+  eventdb:
     image: mysql:5.7
     restart: always
     environment:
@@ -46,14 +46,29 @@ services:
     expose:
       - '3306'
     volumes:
-      - my-db:/var/lib/mysql
+      - my-event-db:/var/lib/mysql
+
+  ticketdb:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3307:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-ticket-db:/var/lib/mysql
 
   event:
     depends_on:
       - broker
-      - db    
+      - eventdb    
     links:
-      - db:db
+      - eventdb:eventdb
       - broker:broker  
     build: event
     restart: always
@@ -62,7 +77,7 @@ services:
     expose:
       - '8080'    
     environment:
-      MYSQL_HOST: 'db'
+      MYSQL_HOST: 'eventdb'
       MYSQL_DATABASE: 'db'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'      
@@ -71,9 +86,7 @@ services:
   invoice:
     depends_on:
       - broker
-      - db    
     links:
-      - db:db 
       - broker:broker 
     build: invoice
     restart: always
@@ -83,9 +96,9 @@ services:
   ticket:
     depends_on:
       - broker
-      - db
+      - ticketdb
     links:
-      - db:db
+      - ticketdb:ticketdb
       - broker:broker
     build: ticket
     restart: always
@@ -94,11 +107,12 @@ services:
     expose: 
         - '8080'
     environment:
-        MYSQL_HOST: 'db'
+        MYSQL_HOST: 'ticketdb'
         MYSQL_DATABASE: 'db'
         MYSQL_USER: 'user'
         MYSQL_PASSWORD: 'password'
         KAFKA_HOST: 'broker'
 
 volumes:
-  my-db:
+  my-event-db:
+  my-ticket-db:

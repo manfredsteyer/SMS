@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose-windows-amd64 convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: invoice
+  name: invoice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: invoice
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose-windows-amd64 convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: invoice
+    spec:
+      containers:
+      - env:
+        - name: KAFKA_HOST
+          value: broker:9092
+        image: manfredsteyertest/invoice
+        imagePullPolicy: ""
+        name: invoice
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
