@@ -1,0 +1,12 @@
+
+POST http://localhost:8081/ticket
+Content-Type: application/json
+
+{
+    "ticketTypeId": 2,
+    "purchaseDate": "2021-05-09T09:03:04.746+00:00",
+    "holder": {
+        "firstName": "John",
+        "lastName": "Doe"
+    }
+}

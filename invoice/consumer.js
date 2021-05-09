@@ -1,8 +1,8 @@
 const { Kafka } = require('kafkajs')
 
 const kafka = new Kafka({
-    clientId: 'event-nodejs-app',
-    brokers: ['broker:9092']
+    clientId: 'invoice',
+    brokers: [process.env.KAFKA_HOST || 'broker:9092']
 });
 
 const consumer = kafka.consumer({ groupId: 'test-client4' });
@@ -16,14 +16,18 @@ process.on('SIGINT', function () {
 (async function () {
 
     await consumer.connect();
-    await consumer.subscribe({ topic: 'eventPublished' });
+    await consumer.subscribe({ topic: 'ticketBooked' });
 
     await consumer.run({
         autoCommit: true,
         eachMessage: async ({topic, partition, message}) => {
-            console.log('message', message);
             if (message.value) {
-                console.log('message.value', message.value.toString());
+                console.log(`
+***************** 
+Creating Invoice for Ticket
+${message.value.toString()} 
+*****************
+`);
             }
         }
     });

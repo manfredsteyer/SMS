@@ -62,9 +62,6 @@ public class KafkaTopicConfig {
     @Bean
     public KafkaAdmin kafkaAdmin() {
 
-        log.info("\n\n\n\n*************************************************************\nbootstrapAddress:::    " + bootstrapAddress);
-
-        
         Map<String, Object> configs = new HashMap<>();
         configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         return new KafkaAdmin(configs);

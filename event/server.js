@@ -1,6 +1,9 @@
 'use strict';
 
 const express = require('express');
+const logger = require('morgan');
+const eventRouter = require('./event');
+const initDb = require('./init-db');
 
 // Constants
 const PORT = 8080;
@@ -9,8 +12,13 @@ const HOST = '0.0.0.0';
 // App
 const app = express();
 
-app.use(express.static('public'));
+initDb();
 
+app.use(logger('dev'));
+app.use(express.static('public'));
+app.use(express.json());
+
+app.use('/api/event', eventRouter);
 
 app.get('/test', (req, res) => {
   res.send('Hello World!');

@@ -60,7 +60,7 @@ public class TicketController {
         
         var type = this.typeRepo.findById(ticket.getTicketTypeId()).get();
         ticket.setTicketType(type);
-    
+        
         kafkaTemplate
             .send("ticketBooked", ticket)
             .addCallback(

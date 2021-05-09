@@ -55,13 +55,18 @@ services:
     links:
       - db:db
       - broker:broker  
-    #image: steyer/node-event
     build: event
     restart: always
     ports:
       - '8080:8080'
     expose:
       - '8080'    
+    environment:
+      MYSQL_HOST: 'db'
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'      
+      KAFKA_HOST: 'broker:9092'
 
   invoice:
     depends_on:
@@ -70,22 +75,16 @@ services:
     links:
       - db:db 
       - broker:broker 
-    #image: steyer/node-event
     build: invoice
     restart: always
-    # ports:
-    #   - '8082:8080'
-    # expose:
-    #   - '8080' 
-
+    environment:
+      KAFKA_HOST: 'broker:9092'
       
   ticket:
     depends_on:
-#      - zookeeper
       - broker
       - db
     links:
-#      - zookeeper:zookeeper
       - db:db
       - broker:broker
     build: ticket
