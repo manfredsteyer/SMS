@@ -19,3 +19,5 @@ cd kubernetes
 kubectl apply -f .
 ```
 
+**Remarks:** When using minikube, also call ``minikube tunnel`` and access the above mentioned locale websites.
+
