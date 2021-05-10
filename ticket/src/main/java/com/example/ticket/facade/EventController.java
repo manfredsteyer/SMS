@@ -36,7 +36,7 @@ public class EventController {
 
     @GetMapping()
     public List<Event> Get() {
-        return this.repo.findAll(Sort.by("start").descending());
+        return this.repo.findAll(Sort.by("eventId").descending());
     }
 
     @PutMapping("{id}")

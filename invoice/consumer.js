@@ -5,8 +5,7 @@ const kafka = new Kafka({
     brokers: [process.env.KAFKA_HOST || 'broker:9092']
 });
 
-const consumer = kafka.consumer({ groupId: 'test-client4' });
-
+const consumer = kafka.consumer({ groupId: 'invoice' });
 
 process.on('SIGINT', function () {
     console.debug('Disconnecting from Kafka ...');
@@ -22,11 +21,26 @@ process.on('SIGINT', function () {
         autoCommit: true,
         eachMessage: async ({topic, partition, message}) => {
             if (message.value) {
+
+                const ticket = JSON.parse(message.value.toString('utf-8'));
+
                 console.log(`
-***************** 
-Creating Invoice for Ticket
-${message.value.toString()} 
-*****************
+***********************************************************
+Subject: Invoice
+
+
+Dear ${ticket.holder.firstName},
+
+Thanks for buying a ticket for ${ticket.ticketType.event.title}.
+
+Please transfer the amount of € ${ticket.ticketType.price} 
+to our bank account.
+
+Looking forward to seeing you there.
+
+Best wishes,
+Your Workshop-Team
+***********************************************************
 `);
             }
         }

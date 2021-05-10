@@ -26,13 +26,13 @@ class LoadDatabase {
 
     return args -> {
       
-      var event1 = new Event(1L, "Spring Workshop", new Date(), new Date());
+      var event1 = new Event(1L, "Spring Workshop");
       var ticketType1 = new TicketType("Single Ticket", new BigDecimal(500));
       var ticketType2 = new TicketType("Group Ticket", new BigDecimal(1500));
       event1.addTicketType(ticketType1);
       event1.addTicketType(ticketType2);
 
-      var event2 = new Event(2L, "Kafka Workshop", new Date(), new Date());
+      var event2 = new Event(2L, "Kafka Workshop");
       var ticketType3 = new TicketType("Single Ticket", new BigDecimal(500));
       var ticketType4 = new TicketType("Group Ticket", new BigDecimal(1500));
       event2.addTicketType(ticketType3);
@@ -60,7 +60,7 @@ class LoadDatabase {
       log.info("Create Entity: " + ticketRepo.save(ticket2));
       log.info("Create Entity: " + ticketRepo.save(ticket3));
 
-      var event3 = new Event(2L, "Node.js Workshop", new Date(), new Date());
+      var event3 = new Event(2L, "Node.js Workshop");
       log.info("Create Entity: " + eventRepo.save(event3));
 
 

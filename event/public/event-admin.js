@@ -60,7 +60,6 @@ function createEvent() {
         title, description
     }
 
-
     fetch(url, {
         method: 'POST',
         body: JSON.stringify(event),

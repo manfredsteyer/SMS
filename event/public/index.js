@@ -22,7 +22,6 @@ function renderEvents(events) {
     </p>
 </div>
 `
-
         if (i % 4 === 3) {
             html += `</div>\n`;
         }

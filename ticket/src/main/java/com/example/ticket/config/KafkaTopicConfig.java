@@ -36,11 +36,6 @@ public class KafkaTopicConfig {
 
     private static final Logger log = LoggerFactory.getLogger(KafkaTopicConfig.class);
 
-    // @Bean
-    // public LoggingErrorHandler errorHandler() {
-    //   return new LoggingErrorHandler();
-    // }
-
     @Bean
     public SeekToCurrentErrorHandler errorHandler(DeadLetterPublishingRecoverer deadLetterPublishingRecoverer) {
       var backOff = new ExponentialBackOff(1000, 1.5);
