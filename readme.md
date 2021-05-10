@@ -2,9 +2,8 @@
 
 ## Start Local Images via Docker Compose
 
-```
-docker-compose up
-```
+- Call ``build.bat``
+- Call ``docker-compose up``
 
 ## Test Applications
 
