@@ -1,6 +1,6 @@
 # Scaleable Micro Service Project
 
-## Start Locale Images via Docker Compose
+## Start Local Images via Docker Compose
 
 ```
 docker-compose up
@@ -19,5 +19,5 @@ cd kubernetes
 kubectl apply -f .
 ```
 
-**Remarks:** When using minikube, also call ``minikube tunnel`` and access the above mentioned locale websites.
+**Remarks:** When using minikube, also call ``minikube tunnel`` and access the above mentioned local websites.
 
